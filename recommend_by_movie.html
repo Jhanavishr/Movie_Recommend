@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommend By Movie</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+        
+        body {
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif; 
+            background-color: #141414; 
+            
+            color: #fff; 
+            overflow-y: scroll; 
+        }
+
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            animation: slideInDown 1s ease; /* Header animation */
+        }
+
+        .header .logo {
+            font-size: 30px;
+            font-family: 'Sriracha', cursive;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-items a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items a:hover {
+            color: #e50914;
+        }
+
+        
+        main {
+            padding-top: 100px; 
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff; 
+            font-size: 32px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease; 
+        }
+
+        form {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #fff; 
+        }
+
+        select {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            border: none;
+            background-color: #333; 
+            color: #fff; 
+            outline: none;
+        }
+
+        button {
+            padding: 12px 24px;
+            background-color: #e50914; 
+            color: #fff;
+            border: none;
+            border-radius: 8px; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #c40811; 
+        }
+
+        button[type="submit"] {
+            background-color: #e50914; 
+            color: #fff; 
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 18px; 
+            font-weight: bold;
+            padding: 14px 28px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c40811; 
+        }
+
+        h2 {
+            text-align: center;
+            color: #fff;
+            font-size: 24px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease;
+        }
+        
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        li {
+            width: calc(20% - 40px); 
+            margin: 20px;
+            text-align: center;
+            animation: fadeIn 1s ease;
+            flex: 0 0 auto;
+        }
+
+        p {
+            color: #fff;
+        }
+
+        img {
+            max-width: 200px;
+            height: auto;
+            border-radius: 8px; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+            transition: transform 0.3s ease; 
+        }
+        
+        img:hover {
+            transform: scale(1.05); 
+        }
+
+        
+        @keyframes slideInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" class="logo">MOVIE RECOMMENDER</a>
+        <nav class="nav-items">
+            <a href="/">Home</a>
+            <a href="/recommend_by_movie">Recommend by movie</a>
+            <a href="/recommend_by_releaseyear">Recommend by year</a>
+            <a href="/login">Login</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>Recommend By Movie</h1>
+        <div class="content"> 
+            <form action="/recommend_by_movie" method="POST">
+                <label for="movieSelect">Select a movie:</label>
+                <select id="movieSelect" name="movieSelect">
+                    {% for movie in movies %}
+                    <option value="{{ movie }}">{{ movie }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit">Recommend</button>
+            </form>
+
+            {% if poster_url %}
+            <h2>Recommended Movies:</h2>
+            <ul>
+                {% for title, url in poster_url.items() %}
+                <li>
+                    <p>{{ title }}</p>
+                    {% if url %}
+                        <img src="{{ url }}" alt="Poster for {{ title }}">
+                        <h3>Overview</h3>
+                        <p>{{ overview[loop.index0] }}</p>
+                    {% else %}
+                        <p>No poster available</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+            {% endif %}
+        </div>
+    </main>
+
+</body>
+
+</html>

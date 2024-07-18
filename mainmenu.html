@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HOMEPAGE</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 20px;
+      background-color: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .header .logo {
+      font-size: 30px;
+      font-family: 'Sriracha', cursive;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .nav-items {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-items a {
+      text-decoration: none;
+      color: #fff;
+      padding: 10px 20px;
+      margin-right: 20px;
+      transition: color 0.3s ease;
+    }
+
+    .nav-items a:hover {
+      color: #e50914;
+    }
+
+    
+    .intro {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      min-height: calc(100vh - 100px); /* Adjusted height to accommodate header */
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.5) 100%), url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/5298bac0-b8bf-4c80-af67-725c1272dbb0/dexe47y-93532dcd-45cd-4381-8758-b6c5535c3a4e.jpg/v1/fill/w_1192,h_670,q_70,strp/2022_movies_wallpaper_by_thekingblader995_dexe47y-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA4MCIsInBhdGgiOiJcL2ZcLzUyOThiYWMwLWI4YmYtNGM4MC1hZjY3LTcyNWMxMjcyZGJiMFwvZGV4ZTQ3eS05MzUzMmRjZC00NWNkLTQzODEtODc1OC1iNmM1NTM1YzNhNGUuanBnIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.rP8tXCYCbw1-NeVVxy3-UYLqMjaLaruzTfv1X1ptpY0");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      color: #fff;
+      text-align: center;
+      animation: fadeIn 1s ease;
+      padding-top: 100px;
+    }
+
+    .intro h1 {
+      font-size: 60px;
+      font-weight: bold;
+      text-transform: uppercase;
+      margin: 0;
+      animation: slideInDown 1s ease;
+    }
+
+    .intro p {
+      font-size: 20px;
+      margin: 20px 0;
+      animation: slideInUp 1s ease;
+    }
+
+    .intro .btn-container {
+      margin-top: 20px;
+    }
+
+    .intro button {
+      background-color: #e50914;
+      color: #fff;
+      padding: 10px 25px;
+      border: none;
+      border-radius: 5px;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      animation: fadeIn 1s ease;
+      text-decoration: none;
+      display: inline-block; 
+      text-align: center; 
+      text-transform: uppercase; 
+      letter-spacing: 1px;
+    }
+
+    .intro button:hover {
+      background-color: #ff0000;
+    }
+
+    
+    .achievements {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 40px 0;
+      background-color: #111;
+      color: #fff;
+      animation: fadeIn 1s ease;
+    }
+
+    .achievements .work {
+      text-align: center;
+      animation: slideInUp 1s ease;
+    }
+
+    .achievements .work i {
+      font-size: 50px;
+      color: #e50914;
+      margin-bottom: 20px;
+      animation: bounce 1s infinite alternate;
+    }
+
+    .achievements .work .work-heading {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .achievements .work .work-text {
+      font-size: 16px;
+      margin: 0;
+    }
+
+    
+    .about-me {
+      background-color: #000;
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .about-me img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 10px;
+      margin-top: 20px;
+      animation: slideInUp 1s ease;
+    }
+
+   
+    .footer {
+      background-color: #111;
+      color: #fff;
+      padding: 40px 0;
+      text-align: center;
+      animation: fadeIn 1s ease;
+    }
+
+    .footer .copy {
+      margin-bottom: 20px;
+    }
+
+    .bottom-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: slideInUp 1s ease;
+    }
+
+    .bottom-links .links {
+      display: flex;
+      margin: 0 10px;
+    }
+
+    .bottom-links .links span {
+      font-size: 20px;
+      margin-right: 10px;
+    }
+
+    .bottom-links .links a {
+      text-decoration: none;
+      color: #fff;
+      padding: 5px 10px;
+      border: 1px solid #fff;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .bottom-links .links a:hover {
+      background-color: #e50914;
+    }
+
+    /* Animations */
+    @keyframes slideInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes slideInDown {
+      0% {
+        opacity: 0;
+        transform: translateY(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce {
+      0% {
+        transform: translateY(0);
+      }
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <a href="#" class="logo">MOVIE RECOMMENDER</a>
+    <nav class="nav-items">
+      <a href="/">Home</a>
+      <a href="/recommend_by_movie">Recommend by movie</a>
+      <a href="/recommend_by_releaseyear">Recommend by year</a>
+      <a href="/login">Login</a>
+      <a href="/logout">Logout</a>
+    </nav>
+  </header>
+  <main>
+    <div class="intro">
+      <h1>MOVIE<br>RECOMMENDATION<br>SYSTEM</h1>
+      <p>Discover your next favorite movie with our recommendation system. Explore a vast collection of films tailored to your tastes.</p>
+      <div class="btn-container">
+        <button><a href="/login" style="text-decoration: none; color: #fff;">Get started!</a></button>
+      </div>
+    </div>
+    <div class="achievements">
+      <div class="work">
+        <i class="fas fa-atom"></i>
+        <p class="work-heading">Personalized Movie Suggestions</p>
+        <p class="work-text">Tailored recommendations based on individual preferences and viewing history.</p>
+      </div>
+      <div class="work">
+        <i class="fas fa-skiing"></i>
+        <p class="work-heading">Seamless Content Discovery</p>
+        <p class="work-text">Effortlessly explore a wide range of movies through intuitive browsing options.</p>
+      </div>
+      <div class="work">
+        <i class="fas fa-ethernet"></i>
+        <p class="work-heading">Enhanced User Experience</p>
+        <p class="work-text">User-friendly interface for effortless exploration and discovery of new movies.</p>
+      </div>
+    </div>
+    <div class="about-me">
+      <div class="about-me-text">
+        <h2>About Our Movie Recommendation System</h2>
+        <p>Our movie recommendation system analyzes your preferences and viewing history to suggest movies<br> that align with your interests. Whether you're into action, romance, or sci-fi, we've got you covered.</p>
+      </div>
+      <img src="https://us.123rf.com/450wm/paniti/paniti1707/paniti170700030/82308574-movie-cinema-poster-design-vector-template-banner-for-show-with-seats-popcorn-tickets.jpg?ver=6" alt="Movie Screen">
+    </div>
+  </main>
+  <footer class="footer">
+    <div class="copy">&copy; Developed by = Jhanavi,Ashlesha,Rutuja,Atharva</div>
+    <div class="bottom-links">
+      <div class="links">
+        <span>More Info</span>
+        <a href="#">Home</a>
+        <a href="/login">Login</a>
+        
+      </div>
+      
+    </div>
+  </footer>
+</body>
+
+</html>

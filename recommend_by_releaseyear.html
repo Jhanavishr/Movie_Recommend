@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommend By Year</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sriracha&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            color: #fff;
+            overflow-y: scroll; 
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            animation: slideInDown 1s ease; 
+        }
+
+        .header .logo {
+            font-size: 30px;
+            font-family: 'Sriracha', cursive;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav-items {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-items a {
+            text-decoration: none;
+            color: #fff;
+            padding: 10px 20px;
+            margin-right: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-items a:hover {
+            color: #e50914;
+        }
+
+        .content {
+            margin-top: 100px; 
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #fff; 
+            font-size: 32px; 
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease; 
+        }
+
+        form {
+            text-align: center;
+            margin-top: 20px;
+            animation: fadeInUp 1s ease; 
+        }
+
+        label {
+            font-weight: bold;
+            color: #fff;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select {
+            padding: 12px;
+            border-radius: 8px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            outline: none;
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 20px;
+        }
+
+        button[type="submit"] {
+            padding: 12px 24px;
+            background-color: #e50914;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            display: block;
+            margin: 0 auto;
+            max-width: 200px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #c40811;
+        }
+
+        h2 {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 24px;
+            font-family: 'Sriracha', cursive;
+            color: #fff;
+            animation: fadeInUp 1s ease; 
+        }
+
+        ul {
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeIn 1s ease; 
+        }
+
+        li {
+            margin: 20px;
+            text-align: center;
+            max-width: 200px;
+        }
+
+        p {
+            margin: 0;
+            color: #fff;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        img:hover {
+            transform: scale(1.05);
+        }
+
+        
+        @keyframes slideInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <a href="/" class="logo">MOVIE RECOMMENDER</a>
+        <nav class="nav-items">
+            <a href="/">Home</a>
+            <a href="/recommend_by_movie">Recommend by movie</a>
+            <a href="/recommend_by_releaseyear">Recommend by year</a>
+            <a href="/login">Login</a>
+            <a href="/logout">Logout</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Recommend By Year</h1>
+
+        <form action="/recommend_by_releaseyear" method="POST">
+            <label for="yearSelect">Select a release year:</label>
+            <select id="yearSelect" name="yearSelect">
+                {% for year in release_years %}
+                <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Recommend</button>
+        </form>
+
+        {% if recommended_data %}
+        <h2>Recommended Movies</h2>
+        <ul>
+            {% for movie_title, poster_url in recommended_data %}
+            <li>
+                <p>{{ movie_title }}</p>
+                {% if poster_url %}
+                <img src="{{ poster_url }}" alt="Poster for {{ movie_title }}">
+                {% else %}
+                <p>No poster available</p>
+                {% endif %}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
